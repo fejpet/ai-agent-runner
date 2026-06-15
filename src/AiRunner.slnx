@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="AiRunner.Application/AiRunner.Application.csproj" />
+  <Project Path="AiRunner.Console/AiRunner.Console.csproj" />
+  <Project Path="AiRunner.Domain/AiRunner.Domain.csproj" />
+  <Project Path="AiRunner.Infrastructure/AiRunner.Infrastructure.csproj" />
+</Solution>
