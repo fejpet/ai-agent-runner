@@ -10,8 +10,8 @@ internal class RunnerConfigurationDto
     [ConfigurationKeyName("terminal-multiplexer")]
     public string TerminalMultiplexer { get; set; } = string.Empty;
 
-    [ConfigurationKeyName("cli")]
-    public string Cli { get; set; } = string.Empty;
+    [ConfigurationKeyName("argument")]
+    public string Argument { get; set; } = string.Empty;
 
     [ConfigurationKeyName("owner-name")]
     public string OwnerName { get; set; } = string.Empty;

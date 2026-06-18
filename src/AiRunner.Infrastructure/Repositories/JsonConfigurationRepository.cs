@@ -23,7 +23,7 @@ public class JsonConfigurationRepository : IConfigurationRepository
         {
             RootFolder = dto.RootFolder,
             TerminalMultiplexer = dto.TerminalMultiplexer,
-            Cli = dto.Cli,
+            Argument = dto.Argument,
             OwnerName = dto.OwnerName,
             Agents = dto.Agents
                 .Select(a => new Agent

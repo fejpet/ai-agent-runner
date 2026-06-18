@@ -13,7 +13,7 @@ This tool is a AI agent cli runner with name `ai-runner`. Ensures that the AI CL
 `{
     "root-folder": "c:/_data/_agents",
     "terminal-multiplexer": "tmux",
-    "cli": "copilot",
+    "arguments": "copilot",
     "owner-name": "Peter",
     "agents":[
         {
@@ -39,4 +39,4 @@ The agent configuration: `name` is the name of the bot, referenced in the agent 
 
 **ACR-3.2**: During startup, it check or initialize the agents. Under the `instances` folder shall be an agent folder, which is generated agent name + "-agent" postfix.
 
-**ACR-3.3**: After startup initialization need to start the agents: All agents need to be started in it's own directory {{agent-name}}-agent. The application start a new process which contains the `teminal-multiplexer` and the `cli`.
+**ACR-3.3**: After startup initialization need to start the agents: All agents need to be started in it's own directory {{agent-name}}-agent. The application start a new process which contains the `teminal-multiplexer` and the `arguments`. The argument is a template text, and before use it is used the template values need to be replaced. Template values are {{agent-name}}, {{root-forlder}}. The template values are initialized from config and made available in an in-memory dictionary to use everywhere though a service.

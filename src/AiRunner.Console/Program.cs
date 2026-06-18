@@ -7,6 +7,7 @@ using AiRunner.Infrastructure.Services;
 var builder = Host.CreateApplicationBuilder(args);
 
 builder.Services.AddSingleton<IConfigurationRepository, JsonConfigurationRepository>();
+builder.Services.AddSingleton<ITemplateService, TemplateService>();
 builder.Services.AddSingleton<IFileSystemService, FileSystemService>();
 builder.Services.AddSingleton<IProcessService, ProcessService>();
 builder.Services.AddTransient<InitializeInfrastructureUseCase>();
