@@ -15,18 +15,21 @@ public class ProcessService : IProcessService
 
     public Task StartAgentProcessAsync(
         string workingDirectory,
-        string terminalMultiplexer,
-        string argument,
+        string command,
         CancellationToken cancellationToken = default)
     {
         _logger.LogInformation(
-            "Launching process: {TerminalMultiplexer} {Argument} in {WorkingDirectory}",
-            terminalMultiplexer, argument, workingDirectory);
+            "Launching process: {Command} in {WorkingDirectory}",
+            command, workingDirectory);
+
+        var spaceIndex = command.IndexOf(' ');
+        var fileName = spaceIndex < 0 ? command : command[..spaceIndex];
+        var arguments = spaceIndex < 0 ? string.Empty : command[(spaceIndex + 1)..];
 
         var startInfo = new ProcessStartInfo
         {
-            FileName = terminalMultiplexer,
-            Arguments = argument,
+            FileName = fileName,
+            Arguments = arguments,
             WorkingDirectory = workingDirectory,
             UseShellExecute = true,
             CreateNoWindow = false
@@ -37,8 +40,8 @@ public class ProcessService : IProcessService
         if (process is null)
         {
             _logger.LogWarning(
-                "Failed to start process '{TerminalMultiplexer} {Argument}' in '{WorkingDirectory}'",
-                terminalMultiplexer, argument, workingDirectory);
+                "Failed to start process '{Command}' in '{WorkingDirectory}'",
+                command, workingDirectory);
         }
         else
         {
@@ -47,4 +50,5 @@ public class ProcessService : IProcessService
 
         return Task.CompletedTask;
     }
+
 }

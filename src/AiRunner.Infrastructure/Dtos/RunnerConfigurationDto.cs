@@ -7,11 +7,8 @@ internal class RunnerConfigurationDto
     [ConfigurationKeyName("root-folder")]
     public string RootFolder { get; set; } = string.Empty;
 
-    [ConfigurationKeyName("terminal-multiplexer")]
-    public string TerminalMultiplexer { get; set; } = string.Empty;
-
-    [ConfigurationKeyName("argument")]
-    public string Argument { get; set; } = string.Empty;
+    [ConfigurationKeyName("commands")]
+    public List<RunnerCommandDto> Commands { get; set; } = [];
 
     [ConfigurationKeyName("owner-name")]
     public string OwnerName { get; set; } = string.Empty;

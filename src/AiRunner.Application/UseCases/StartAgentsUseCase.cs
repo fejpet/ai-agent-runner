@@ -28,11 +28,14 @@ public class StartAgentsUseCase
 
         _logger.LogInformation("Starting {Count} agent(s)...", config.Agents.Count);
 
+        var startCommandTemplate = config.Commands.FirstOrDefault(c => c.Name == "start")?.Command
+            ?? throw new InvalidOperationException("No 'start' command found in runner configuration.");
+
         foreach (var agent in config.Agents)
         {
             var agentFolder = Path.Combine(config.InstancesFolder, agent.AgentFolderName);
-            var resolvedArguments = _templateService.Resolve(
-                config.Argument,
+            var resolvedCommand = _templateService.Resolve(
+                startCommandTemplate,
                 new Dictionary<string, string> { ["agent-name"] = agent.Name });
 
             _logger.LogInformation(
@@ -42,8 +45,7 @@ public class StartAgentsUseCase
 
             await _processService.StartAgentProcessAsync(
                 agentFolder,
-                config.TerminalMultiplexer,
-                resolvedArguments,
+                resolvedCommand,
                 cancellationToken);
         }
     }

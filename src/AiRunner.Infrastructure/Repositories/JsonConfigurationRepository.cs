@@ -22,9 +22,14 @@ public class JsonConfigurationRepository : IConfigurationRepository
         var configuration = new RunnerConfiguration
         {
             RootFolder = dto.RootFolder,
-            TerminalMultiplexer = dto.TerminalMultiplexer,
-            Argument = dto.Argument,
             OwnerName = dto.OwnerName,
+            Commands = dto.Commands
+                .Select(c => new RunnerCommand
+                {
+                    Name = c.Name,
+                    Command = c.Command
+                })
+                .ToList(),
             Agents = dto.Agents
                 .Select(a => new Agent
                 {

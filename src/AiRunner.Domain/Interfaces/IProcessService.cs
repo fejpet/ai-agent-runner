@@ -4,7 +4,6 @@ public interface IProcessService
 {
     Task StartAgentProcessAsync(
         string workingDirectory,
-        string terminalMultiplexer,
-        string argument,
+        string command,
         CancellationToken cancellationToken = default);
 }

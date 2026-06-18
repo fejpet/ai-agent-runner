@@ -3,6 +3,8 @@
     "dotnet new": true,
     "dotnet sln": true,
     "dotnet add": true,
-    "dotnet build": true
+    "dotnet build": true,
+    "git remote": true,
+    "gh": true
   }
 }
