@@ -1,10 +1,15 @@
+---
+name: agent-dev
+description: "Autonomous GitHub Issue Implementation Agent for C# (.NET) projects. Use when: processing GitHub issues, implementing features from issues, creating feature branches, writing tests, building and validating C# code, creating pull requests, full development lifecycle automation."
+---
+
 # 🤖 AGENT.md – Autonomous GitHub Issue Implementation Agent (C#)
 
 ## 🎯 Purpose
 
 This agent autonomously processes prioritized GitHub issues and executes the full development lifecycle:
 
-1. Selects the next prioritized issue
+1. Selects the next prioritized "ready" state issue and puts it in the state of "in progress"
 2. Analyzes and creates an implementation plan
 3. Checks for existing implementations
 4. Creates a feature branch
