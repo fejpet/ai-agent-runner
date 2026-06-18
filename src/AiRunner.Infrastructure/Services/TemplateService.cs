@@ -11,7 +11,8 @@ public class TemplateService : ITemplateService
         var config = configurationRepository.GetConfigurationAsync().GetAwaiter().GetResult();
         _globalValues = new Dictionary<string, string>
         {
-            ["root-folder"] = config.RootFolder
+            ["root-folder"] = config.RootFolder,
+            ["OWNER_NAME"] = config.OwnerName
         };
     }
 

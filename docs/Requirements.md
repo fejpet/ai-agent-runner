@@ -64,3 +64,7 @@ The agent configuration: `name` is the name of the bot, referenced in the agent 
 **ACR-4.2**: Memory entries have a unique ID, content (free text), optional tags, and a creation timestamp.
 
 **ACR-4.3**: Memories can be saved per-agent via `SaveAgentMemoryUseCase`. Memories can be searched per-agent by content or tags (case-insensitive) via `SearchAgentMemoryUseCase`.
+
+**ACR-5.1 (AAR-1.5)**: During agent initialization, if `AGENT.md` does not exist in the agent folder, it SHALL be initialized from a role-based template. The template file follows the naming convention `{{role}}-template.md` and is located in the `templates` folder. All placeholders (e.g., `{{BOT_NAME}}`, `{{agent-name}}`, `{{role}}`, `{{OWNER_NAME}}`, `{{root-folder}}`) SHALL be resolved before writing the file to `{{instances-folder}}/{{agent-name}}-agent/AGENT.md`. If the template file does not exist, initialization is skipped for that agent.
+
+**ACR-5.2 (AAR-1.5)**: During agent initialization, if `AGENT.override.md` does not exist in the agent folder, an empty `AGENT.override.md` file SHALL be created there.
