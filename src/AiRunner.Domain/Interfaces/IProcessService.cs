@@ -6,4 +6,9 @@ public interface IProcessService
         string workingDirectory,
         string command,
         CancellationToken cancellationToken = default);
+
+    Task<int> RunCommandAndGetExitCodeAsync(
+        string workingDirectory,
+        string command,
+        CancellationToken cancellationToken = default);
 }

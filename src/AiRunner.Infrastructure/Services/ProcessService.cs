@@ -51,4 +51,39 @@ public class ProcessService : IProcessService
         return Task.CompletedTask;
     }
 
+    public async Task<int> RunCommandAndGetExitCodeAsync(
+        string workingDirectory,
+        string command,
+        CancellationToken cancellationToken = default)
+    {
+        _logger.LogDebug(
+            "Running command to check exit code: {Command} in {WorkingDirectory}",
+            command, workingDirectory);
+
+        var spaceIndex = command.IndexOf(' ');
+        var fileName = spaceIndex < 0 ? command : command[..spaceIndex];
+        var arguments = spaceIndex < 0 ? string.Empty : command[(spaceIndex + 1)..];
+
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = fileName,
+            Arguments = arguments,
+            WorkingDirectory = workingDirectory,
+            UseShellExecute = false,
+            CreateNoWindow = true,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true
+        };
+
+        using var process = new Process { StartInfo = startInfo };
+        process.Start();
+
+        await process.WaitForExitAsync(cancellationToken);
+
+        _logger.LogDebug(
+            "Command '{Command}' exited with code {ExitCode}",
+            command, process.ExitCode);
+
+        return process.ExitCode;
+    }
 }
