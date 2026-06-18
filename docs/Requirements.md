@@ -11,7 +11,7 @@ This tool is a AI agent cli runner with name `ai-runner`. Ensures that the AI CL
 
 **ACR-2.1**: Following configuration controls application:
 `{
-    "root-folder": "c:/_data/_agents",
+    "root-folder": "/mnt/c/_data/_agents",
     "owner-name": "Peter",
     "commands": [
         {
