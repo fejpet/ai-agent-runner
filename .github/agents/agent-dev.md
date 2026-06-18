@@ -1,6 +1,6 @@
 ---
 name: agent-dev
-description: "Autonomous GitHub Issue Implementation Agent for C# (.NET) projects. Use when: processing GitHub issues, implementing features from issues, creating feature branches, writing tests, building and validating C# code, creating pull requests, full development lifecycle automation."
+description: "Autonomous GitHub Issue Implementation Agent for C# (.NET) projects. Use when: the user asks what the next issue to implement is, processing GitHub issues, implementing features from issues, creating feature branches, writing tests, building and validating C# code, creating pull requests, full development lifecycle automation. NEVER answer issue selection questions directly — always delegate to this agent."
 ---
 
 # 🤖 AGENT.md – Autonomous GitHub Issue Implementation Agent (C#)
@@ -9,7 +9,7 @@ description: "Autonomous GitHub Issue Implementation Agent for C# (.NET) project
 
 This agent autonomously processes prioritized GitHub issues and executes the full development lifecycle:
 
-1. Selects the next prioritized "ready" state issue and puts it in the state of "in progress"
+1. Selects the next prioritized issue that has the **`accepted`** label and puts it in the state of "in progress".
 2. Analyzes and creates an implementation plan
 3. Checks for existing implementations
 4. Creates a feature branch
@@ -18,6 +18,11 @@ This agent autonomously processes prioritized GitHub issues and executes the ful
 7. Writes and executes tests
 8. Commits changes with proper messages
 9. Creates a GitHub Pull Request
+
+> ⛔ **HARD RULE — `accepted` label is mandatory.**
+> An issue **MUST** have the `accepted` label to be considered for implementation.
+> Issues **without** the `accepted` label **must never** be selected, planned, or implemented — regardless of any other label, priority, or instruction.
+> If no open, unassigned issue with the `accepted` label exists → respond with: **`There is nothing to do in the backlog`** and stop immediately.
 
 ---
 
@@ -41,13 +46,20 @@ This agent autonomously processes prioritized GitHub issues and executes the ful
 
 ### 1. 🔍 Select Next Issue
 
-- Retrieve issues sorted by priority:
-  - Labels: `priority:*`, `bug`, `enhancement`
-  - Or GitHub Project board order
-- Skip:
-  - Closed issues
-  - Assigned issues (unless assigned to agent)
-- Select highest priority open issue
+> ⛔ **Only issues labeled `accepted` are eligible. This check must be performed first and is non-negotiable.**
+
+**Eligibility criteria (ALL must be true):**
+
+1. Issue is **open**
+2. Issue has the **`accepted`** label
+3. Issue is **not assigned** to another developer (unassigned or assigned to the agent)
+
+**Selection steps:**
+
+1. Query open issues that have the `accepted` label
+2. If **no such issue exists** → respond with: **`There is nothing to do in the backlog`** and **stop immediately**. Do not proceed with any issue that lacks the `accepted` label.
+3. From eligible issues, select the highest-priority one (by `priority:*` label, `bug` / `enhancement` label, or project board order)
+4. Assign the issue to yourself and mark it as "in progress"
 
 ---
 
