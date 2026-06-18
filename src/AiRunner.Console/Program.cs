@@ -10,8 +10,11 @@ builder.Services.AddSingleton<IConfigurationRepository, JsonConfigurationReposit
 builder.Services.AddSingleton<ITemplateService, TemplateService>();
 builder.Services.AddSingleton<IFileSystemService, FileSystemService>();
 builder.Services.AddSingleton<IProcessService, ProcessService>();
+builder.Services.AddSingleton<IAgentMemoryRepository, JsonAgentMemoryRepository>();
 builder.Services.AddTransient<InitializeInfrastructureUseCase>();
 builder.Services.AddTransient<StartAgentsUseCase>();
+builder.Services.AddTransient<SaveAgentMemoryUseCase>();
+builder.Services.AddTransient<SearchAgentMemoryUseCase>();
 builder.Services.AddHostedService<Worker>();
 
 var host = builder.Build();

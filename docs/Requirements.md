@@ -56,3 +56,9 @@ The agent configuration: `name` is the name of the bot, referenced in the agent 
 **ACR-3.2**: During startup, it check or initialize the agents. Under the `instances` folder shall be an agent folder, which is generated agent name + "-agent" postfix.
 
 **ACR-3.3**: After startup initialization need to start the agents: All agents need to be started in it's own directory {{agent-name}}-agent. The application looks up the command named `start` from the `commands` configuration list and resolves its template placeholders (`{{agent-name}}`, `{{root-folder}}`) before execution. The resolved command string is split into executable and arguments (first whitespace-delimited token is the executable, the remainder is passed as arguments) and launched as a new process in the agent's working directory.
+
+**ACR-4.1**: Each agent has a persistent memory store (`memory.json`) in its agent folder. The memory is initialized during startup if it does not exist.
+
+**ACR-4.2**: Memory entries have a unique ID, content (free text), optional tags, and a creation timestamp.
+
+**ACR-4.3**: Memories can be saved per-agent via `SaveAgentMemoryUseCase`. Memories can be searched per-agent by content or tags (case-insensitive) via `SearchAgentMemoryUseCase`.

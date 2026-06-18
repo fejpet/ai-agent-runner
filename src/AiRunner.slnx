@@ -3,4 +3,5 @@
   <Project Path="AiRunner.Console/AiRunner.Console.csproj" />
   <Project Path="AiRunner.Domain/AiRunner.Domain.csproj" />
   <Project Path="AiRunner.Infrastructure/AiRunner.Infrastructure.csproj" />
+  <Project Path="AiRunner.Tests/AiRunner.Tests.csproj" />
 </Solution>
