@@ -7,15 +7,18 @@ public class InitializeInfrastructureUseCase
 {
     private readonly IConfigurationRepository _configurationRepository;
     private readonly IFileSystemService _fileSystemService;
+    private readonly IAgentMemoryRepository _agentMemoryRepository;
     private readonly ILogger<InitializeInfrastructureUseCase> _logger;
 
     public InitializeInfrastructureUseCase(
         IConfigurationRepository configurationRepository,
         IFileSystemService fileSystemService,
+        IAgentMemoryRepository agentMemoryRepository,
         ILogger<InitializeInfrastructureUseCase> logger)
     {
         _configurationRepository = configurationRepository;
         _fileSystemService = fileSystemService;
+        _agentMemoryRepository = agentMemoryRepository;
         _logger = logger;
     }
 
@@ -34,6 +37,8 @@ public class InitializeInfrastructureUseCase
             var agentFolder = Path.Combine(config.InstancesFolder, agent.AgentFolderName);
             _fileSystemService.EnsureDirectoryExists(agentFolder);
             _logger.LogInformation("Agent folder ready: {AgentFolder}", agentFolder);
+
+            await _agentMemoryRepository.InitializeAsync(agent.Name, cancellationToken);
         }
     }
 }
