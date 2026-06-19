@@ -41,7 +41,7 @@ public class InitializeInfrastructureUseCaseTests
             Agents = agents
         };
 
-    // ── AGENT.md initialization ─────────────────────────────────────────────
+    // ── AGENTS.md initialization ─────────────────────────────────────────────
 
     [Fact]
     public async Task ExecuteAsync_CreatesAgentMd_WhenTemplateExistsAndAgentMdDoesNot()
@@ -53,7 +53,7 @@ public class InitializeInfrastructureUseCaseTests
             .Setup(r => r.GetConfigurationAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(config);
 
-        var agentMdPath = Path.Combine(InstancesFolder, "boss-agent", "AGENT.md");
+        var agentMdPath = Path.Combine(InstancesFolder, "boss-agent", "AGENTS.md");
         var templatePath = Path.Combine(TemplatesFolder, "boss-template.md");
 
         _fileSystemMock.Setup(f => f.FileExists(agentMdPath)).Returns(false);
@@ -79,7 +79,7 @@ public class InitializeInfrastructureUseCaseTests
             .Setup(r => r.GetConfigurationAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(config);
 
-        var agentMdPath = Path.Combine(InstancesFolder, "boss-agent", "AGENT.md");
+        var agentMdPath = Path.Combine(InstancesFolder, "boss-agent", "AGENTS.md");
 
         _fileSystemMock.Setup(f => f.FileExists(agentMdPath)).Returns(true);
 
@@ -99,7 +99,7 @@ public class InitializeInfrastructureUseCaseTests
             .Setup(r => r.GetConfigurationAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(config);
 
-        var agentMdPath = Path.Combine(InstancesFolder, "boss-agent", "AGENT.md");
+        var agentMdPath = Path.Combine(InstancesFolder, "boss-agent", "AGENTS.md");
         var templatePath = Path.Combine(TemplatesFolder, "boss-template.md");
 
         _fileSystemMock.Setup(f => f.FileExists(agentMdPath)).Returns(false);
@@ -120,7 +120,7 @@ public class InitializeInfrastructureUseCaseTests
             .Setup(r => r.GetConfigurationAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(config);
 
-        var agentMdPath = Path.Combine(InstancesFolder, "worker-agent", "AGENT.md");
+        var agentMdPath = Path.Combine(InstancesFolder, "worker-agent", "AGENTS.md");
         var templatePath = Path.Combine(TemplatesFolder, "dev-template.md");
         const string templateContent = "Role: {{role}}, Bot: {{BOT_NAME}}";
 
@@ -152,7 +152,7 @@ public class InitializeInfrastructureUseCaseTests
             .Setup(r => r.GetConfigurationAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(config);
 
-        var agentMdPath = Path.Combine(InstancesFolder, "boss-agent", "AGENT.md");
+        var agentMdPath = Path.Combine(InstancesFolder, "boss-agent", "AGENTS.md");
 
         // Wrong template name should NOT be used
         var wrongTemplatePath = Path.Combine(TemplatesFolder, "boss-template.md");
@@ -169,7 +169,7 @@ public class InitializeInfrastructureUseCaseTests
         _fileSystemMock.Verify(f => f.ReadAllText(correctTemplatePath), Times.Once);
     }
 
-    // ── AGENT.override.md initialization ──────────────────────────────────
+    // ── AGENTS.override.md initialization ──────────────────────────────────
 
     [Fact]
     public async Task ExecuteAsync_CreatesOverrideMd_WhenItDoesNotExist()
@@ -181,11 +181,11 @@ public class InitializeInfrastructureUseCaseTests
             .Setup(r => r.GetConfigurationAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(config);
 
-        var agentMdPath = Path.Combine(InstancesFolder, "boss-agent", "AGENT.md");
-        var overridePath = Path.Combine(InstancesFolder, "boss-agent", "AGENT.override.md");
+        var agentMdPath = Path.Combine(InstancesFolder, "boss-agent", "AGENTS.md");
+        var overridePath = Path.Combine(InstancesFolder, "boss-agent", "AGENTS.override.md");
         var templatePath = Path.Combine(TemplatesFolder, "boss-template.md");
 
-        _fileSystemMock.Setup(f => f.FileExists(agentMdPath)).Returns(true); // skip AGENT.md
+        _fileSystemMock.Setup(f => f.FileExists(agentMdPath)).Returns(true); // skip AGENTS.md
         _fileSystemMock.Setup(f => f.FileExists(overridePath)).Returns(false);
 
         await _sut.ExecuteAsync();
@@ -203,10 +203,10 @@ public class InitializeInfrastructureUseCaseTests
             .Setup(r => r.GetConfigurationAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(config);
 
-        var agentMdPath = Path.Combine(InstancesFolder, "boss-agent", "AGENT.md");
-        var overridePath = Path.Combine(InstancesFolder, "boss-agent", "AGENT.override.md");
+        var agentMdPath = Path.Combine(InstancesFolder, "boss-agent", "AGENTS.md");
+        var overridePath = Path.Combine(InstancesFolder, "boss-agent", "AGENTS.override.md");
 
-        _fileSystemMock.Setup(f => f.FileExists(agentMdPath)).Returns(true); // skip AGENT.md
+        _fileSystemMock.Setup(f => f.FileExists(agentMdPath)).Returns(true); // skip AGENTS.md
         _fileSystemMock.Setup(f => f.FileExists(overridePath)).Returns(true);
 
         await _sut.ExecuteAsync();
@@ -228,8 +228,8 @@ public class InitializeInfrastructureUseCaseTests
             .Setup(r => r.GetConfigurationAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(config);
 
-        var bossOverride = Path.Combine(InstancesFolder, "boss-agent", "AGENT.override.md");
-        var workerOverride = Path.Combine(InstancesFolder, "worker-agent", "AGENT.override.md");
+        var bossOverride = Path.Combine(InstancesFolder, "boss-agent", "AGENTS.override.md");
+        var workerOverride = Path.Combine(InstancesFolder, "worker-agent", "AGENTS.override.md");
 
         // All FileExists calls return false (files don't exist yet)
         _fileSystemMock.Setup(f => f.FileExists(It.IsAny<string>())).Returns(false);

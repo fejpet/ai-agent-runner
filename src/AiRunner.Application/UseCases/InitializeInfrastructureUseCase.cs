@@ -50,10 +50,10 @@ public class InitializeInfrastructureUseCase
 
     private void InitializeAgentMd(string agentFolder, string agentName, string agentRole, string templatesFolder)
     {
-        var agentMdPath = Path.Combine(agentFolder, "AGENT.md");
+        var agentMdPath = Path.Combine(agentFolder, "AGENTS.md");
         if (_fileSystemService.FileExists(agentMdPath))
         {
-            _logger.LogDebug("AGENT.md already exists for agent '{AgentName}' — skipping initialization.", agentName);
+            _logger.LogDebug("AGENTS.md already exists for agent '{AgentName}' — skipping initialization.", agentName);
             return;
         }
 
@@ -63,7 +63,7 @@ public class InitializeInfrastructureUseCase
         if (!_fileSystemService.FileExists(templatePath))
         {
             _logger.LogWarning(
-                "Template file '{TemplateFile}' not found for agent '{AgentName}' — AGENT.md will not be created.",
+                "Template file '{TemplateFile}' not found for agent '{AgentName}' — AGENTS.md will not be created.",
                 templateFileName,
                 agentName);
             return;
@@ -81,19 +81,19 @@ public class InitializeInfrastructureUseCase
         var resolvedContent = _templateService.Resolve(templateContent, agentValues);
 
         _fileSystemService.WriteAllText(agentMdPath, resolvedContent);
-        _logger.LogInformation("AGENT.md initialized for agent '{AgentName}'.", agentName);
+        _logger.LogInformation("AGENTS.md initialized for agent '{AgentName}'.", agentName);
     }
 
     private void InitializeAgentOverrideMd(string agentFolder)
     {
-        var overridePath = Path.Combine(agentFolder, "AGENT.override.md");
+        var overridePath = Path.Combine(agentFolder, "AGENTS.override.md");
         if (_fileSystemService.FileExists(overridePath))
         {
-            _logger.LogDebug("AGENT.override.md already exists — skipping.");
+            _logger.LogDebug("AGENTS.override.md already exists — skipping.");
             return;
         }
 
         _fileSystemService.WriteAllText(overridePath, string.Empty);
-        _logger.LogInformation("AGENT.override.md created in '{AgentFolder}'.", agentFolder);
+        _logger.LogInformation("AGENTS.override.md created in '{AgentFolder}'.", agentFolder);
     }
 }
